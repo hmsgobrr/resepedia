@@ -102,8 +102,8 @@ const Home = ({setSelectedTab}) => {
                             ...FONTS.body3
                         }}
                         placeholder='search for recipes'
-                        // editable={false}
-                        // onTouchStart={()=>setSelectedTab(constants.screens.search)}
+                        editable={false}
+                        onTouchStart={()=>{setSelectedTab(constants.screens.search)}}
                        />
                     
                     {/* Filter */}

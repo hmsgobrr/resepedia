@@ -18,6 +18,9 @@ import Recipe from "./Recipe/Recipe";
 // Notification
 import Notification from "./Notification/Notification"
 
+// OnBoarding
+import OnBoarding from "./OnBoarding/OnBoarding"
+
 export {
     MainLayout,
     Home,
@@ -25,5 +28,6 @@ export {
     CartTab,
     Bookmark,
     Notification,
-    Recipe
+    Recipe,
+    OnBoarding
 }

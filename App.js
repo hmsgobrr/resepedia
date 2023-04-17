@@ -16,7 +16,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import rootReducer from "./stores/rootReducer";
 
-import { Recipe } from "./screens";
+import { Recipe, OnBoarding } from "./screens";
 
 const Stack = createStackNavigator();
 

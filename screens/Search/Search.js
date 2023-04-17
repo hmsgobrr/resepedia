@@ -13,11 +13,22 @@ import { FONTS,SIZES,COLORS,icons,dummyData,constants } from '../../constants';
 import { HorizontalFoodCard, LargeFoodCard, VerticalFoodCard } from '../../components';
 import { useSharedValue, useAnimatedStyle, useDerivedValue, withTiming, interpolateColor } from 'react-native-reanimated';
 import { onChange } from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused  } from '@react-navigation/native';
+import { setSelectedTab } from '../../stores/tab/tabActions';
+import { connect } from 'react-redux';
 
-const Search = () => {
+const Search = ({selectedTab}) => {
 
     const navigation = useNavigation();
+
+    const textInputRef = React.useRef();
+
+    React.useEffect(()=>{
+        if(selectedTab===constants.screens.search){
+            textInputRef.current?.focus();
+        }
+    }, [selectedTab])
+
     const [selectedCategoryId, setSelectedCategoryId]=React.useState(1)
     const [selectedMenuType, setSelectedMenuType]=React.useState(1)
     const [popularSearch,setPopularSearch] = React.useState([])
@@ -124,6 +135,8 @@ const Search = () => {
                     />
                     {/* Text Input */}
                     <TextInput
+                        //forceFocus={true}
+                        ref={textInputRef}
                         style={{
                             flex:1,
                             marginLeft:SIZES.radius,
@@ -158,10 +171,7 @@ const Search = () => {
                     flexDirection:'row',
                     height:40,
                     alignItems:'center',
-                    right:expandAnimatedValue.interpolate({
-                        inputRange:[0,1],
-                        outputRange:[15,30]
-                    }),
+                    // right:15,
                     marginVertical:SIZES.base,
                     paddingHorizontal:SIZES.radius,
                 }}
@@ -174,8 +184,12 @@ const Search = () => {
                             width:20,
                             tintColor:COLORS.black,
                             opacity: widthY.interpolate({
-                                inputRange:[280,320],
+                                inputRange:[280,315],
                                 outputRange:[1,0]
+                            }),
+                            right:widthY.interpolate({
+                                inputRange:[280,325],
+                                outputRange:[15,80]
                             }),
                             transform:[
                                 {
@@ -183,7 +197,7 @@ const Search = () => {
                                         inputRange:[0,1],
                                         outputRange:['90deg','0deg']
                                     })
-                            }
+                            },
                             ]
                             
                         }}/>
@@ -308,5 +322,17 @@ const Search = () => {
         </View>
     )
 }
-
-export default Search
+function mapStateToProps(state) {
+    return {
+        selectedTab : state.tabReducer.selectedTab
+    }
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+        setSelectedTab: (selectedTab) => { return dispatch(setSelectedTab(selectedTab))}
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)
+  (Search)
