@@ -152,12 +152,16 @@ const Search = () => {
                         />
                     </TouchableOpacity>
 
+                {/* Drop down */}
                 </Animated.View>
                 <TouchableOpacity                 style={{
                     flexDirection:'row',
                     height:40,
                     alignItems:'center',
-                    right:15,
+                    right:expandAnimatedValue.interpolate({
+                        inputRange:[0,1],
+                        outputRange:[15,30]
+                    }),
                     marginVertical:SIZES.base,
                     paddingHorizontal:SIZES.radius,
                 }}
