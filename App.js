@@ -16,7 +16,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import rootReducer from "./stores/rootReducer";
 
-import { Recipe, OnBoarding } from "./screens";
+import { Recipe, OnBoarding, Login } from "./screens";
 
 const Stack = createStackNavigator();
 
@@ -52,11 +52,20 @@ const App = () => {
                 initialRouteName={'Home'}
             >
                 <Stack.Screen
-                    name="Home"
-                    component={CustomDrawer}
+                  name="Home"
+                  component={CustomDrawer}
                 />
 
-                <Stack.Screen name="Recipe" component={Recipe}/>
+                <Stack.Screen
+                  name="Login"
+                  component={Login}
+                />
+
+                <Stack.Screen 
+                  name="Recipe" 
+                  component={Recipe}
+                />
+
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>

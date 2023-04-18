@@ -85,6 +85,7 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
                     }}
                     onPress={()=> navigation.closeDrawer()}
                     >
+
                         <Image
                             source={icons.cross}
                             style={{

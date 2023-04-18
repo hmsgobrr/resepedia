@@ -200,171 +200,191 @@ const MainLayout = ({props, navigation, selectedTab, setSelectedTab}) => {
     outputRange: [0, 28],
   });
 
+  const rotateY = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: ["0deg", '-30deg']
+  });
+
+  const translateX = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: ['0','-125  ']
+  });
+
+
   const animatedStyle = {
     borderRadius,
-    transform: [{ scale }],
+    transform: [
+      { perspective:850},
+      { scale },
+      { rotateY },
+      { translateX }
+    ],
     overflow:'hidden'
   };
 
   return (
-    <Animated.View
-      style={{
-        flex: 1,
-        backgroundColor: COLORS.white,
-        ...animatedStyle,
-      }}
-    >
-      {/* Header */}
-      <Header containerStyle={{
-        height:50,
-        paddingHorizontal:SIZES.padding,
-        marginTop:40,
-        alignItems:'center'
-      }}
-      title={selectedTab.toUpperCase()}
-      leftComponent={
-        <TouchableOpacity
+    <View style={{flex:1}}>
+
+      <Animated.View
         style={{
-          width:40,
-          height:40,
-          alignItems:'center',
-          justifyContent:'center',
-          borderRadius:SIZES.radius,
-          borderWidth:1,
-          borderColor:COLORS.gray2
+          flex: 1,
+          backgroundColor: COLORS.white,
+          ...animatedStyle
         }}
-        onPress={()=>navigation.openDrawer()}>
-          <Image source={icons.menu}/>
-        </TouchableOpacity>
-      }
-      rightComponent={
-        <TouchableOpacity
-        style={{
-          borderRadius:SIZES.radius,
-          alignItems:'center',
-          justifyContent:'center'
-        }}>
-          <Image
-            source={dummyData?.myProfile?.profile_image}
-            style={{
-              width:40,
-              height:40,
-              borderRadius:SIZES.radius
-            }}
-          />
-        </TouchableOpacity>
-      }
-      />
-
-      {/* Content */}
-      <View
-      style={{
-        flex:1
-      }}
       >
-        <FlatList 
-          ref={flatListRef}
-          horizontal
-          scrollEnabled={false}
-          pagingEnabled
-          snapToAlignment='center'
-          snapToInterval={SIZES.width}
-          showsHorizontalScrollIndicator={false}
-          data={constants.bottom_tabs}
-          keyExtractor={item=>`${item.id}`}
-          renderItem={({item,index})=>{
-            return (
-              <View
-                style={{
-                  height:SIZES.height,
-                  width:SIZES.width
-                }}
-              >
-                {item.label==constants.screens.home && <Home />}
-                {item.label==constants.screens.search && <Search />}
-                {item.label==constants.screens.bookmark && <Bookmark />}
-                {item.label==constants.screens.notification && <Notification />}
-              </View>
-            )
-          }}
-        />
-      </View>
-      
-      {/* Footer */}
-      <View style={{height:100,justifyContent:'flex-end'}}>
-
-      <LinearGradient
-          start={{x:0, y:0}}
-          end={{x:0,y:4}}
-          colors={[
-            'transparent',
-            'black',
-            
-          ]}
+        {/* Header */}
+        <Header containerStyle={{
+          height:50,
+          paddingHorizontal:SIZES.padding,
+          marginTop:40,
+          alignItems:'center'
+        }}
+        title={selectedTab.toUpperCase()}
+        leftComponent={
+          <TouchableOpacity
           style={{
-            position:'absolute',
-            left:0,
-            right:0,
-            height:150,
-            borderTopRightRadius:15,
-            borderTopLeftRadius:15
+            width:40,
+            height:40,
+            alignItems:'center',
+            justifyContent:'center',
+            borderRadius:SIZES.radius,
+            borderWidth:1,
+            borderColor:COLORS.gray2
           }}
+          onPress={()=>navigation.openDrawer()}>
+            <Image source={icons.menu}/>
+          </TouchableOpacity>
+        }
+        rightComponent={
+          <TouchableOpacity
+          style={{
+            borderRadius:SIZES.radius,
+            alignItems:'center',
+            justifyContent:'center'
+          }}>
+            <Image
+              source={dummyData?.myProfile?.profile_image}
+              style={{
+                width:40,
+                height:40,
+                borderRadius:SIZES.radius
+              }}
+            />
+          </TouchableOpacity>
+        }
         />
 
-        {/* Tabs */}
+        {/* Content */}
         <View
         style={{
-          flex:1,
-          flexDirection:'row',
-          paddingHorizontal:SIZES.radius,
-          paddingBottom:10,
-          bottom: 20,
-          marginHorizontal: 15,
-          height:50,
-          borderRadius: 23,
-          backgroundColor:COLORS.white
-        }}>
-        
-
-          <TabButton
-          label={constants.screens.home}
-          icon={icons.home}
-          isFocused={selectedTab==constants.screens.home}
-          outerContainerStyle={homeFlexStyle}
-          innerContainerStyle={homeColorStyle}
-          onPress={()=>setSelectedTab(constants.screens.home)}
-          />
-
-          <TabButton
-          label={constants.screens.search}
-          icon={icons.search}
-          isFocused={selectedTab==constants.screens.search}
-          outerContainerStyle={searchFlexStyle}
-          innerContainerStyle={searchColorStyle}
-          onPress={()=>setSelectedTab(constants.screens.search)}
-          />
-
-          <TabButton
-          label={constants.screens.bookmark}
-          icon={icons.bookmark}
-          isFocused={selectedTab==constants.screens.bookmark}
-          outerContainerStyle={bookmarkFlexStyle}
-          innerContainerStyle={bookmarkColorStyle}
-          onPress={()=>setSelectedTab(constants.screens.bookmark)}
-          />
-
-          <TabButton
-          label={constants.screens.notification}
-          icon={icons.notification}
-          isFocused={selectedTab==constants.screens.notification}
-          outerContainerStyle={notificationFlexStyle}
-          innerContainerStyle={notificationColorStyle}
-          onPress={()=>setSelectedTab(constants.screens.notification)}
+          flex:1
+        }}
+        >
+          <FlatList 
+            ref={flatListRef}
+            horizontal
+            scrollEnabled={false}
+            pagingEnabled
+            snapToAlignment='center'
+            snapToInterval={SIZES.width}
+            showsHorizontalScrollIndicator={false}
+            data={constants.bottom_tabs}
+            keyExtractor={item=>`${item.id}`}
+            renderItem={({item,index})=>{
+              return (
+                <View
+                  style={{
+                    height:SIZES.height,
+                    width:SIZES.width
+                  }}
+                >
+                  {item.label==constants.screens.home && <Home />}
+                  {item.label==constants.screens.search && <Search />}
+                  {item.label==constants.screens.bookmark && <Bookmark />}
+                  {item.label==constants.screens.notification && <Notification />}
+                </View>
+              )
+            }}
           />
         </View>
-      </View>
+        
+        {/* Footer */}
+        <View style={{height:100,justifyContent:'flex-end'}}>
 
-    </Animated.View>
+        <LinearGradient
+            start={{x:0, y:0}}
+            end={{x:0,y:4}}
+            colors={[
+              'transparent',
+              'black',
+              
+            ]}
+            style={{
+              position:'absolute',
+              left:0,
+              right:0,
+              height:150,
+              borderTopRightRadius:15,
+              borderTopLeftRadius:15
+            }}
+          />
+
+          {/* Tabs */}
+          <View
+          style={{
+            flex:1,
+            flexDirection:'row',
+            paddingHorizontal:SIZES.radius,
+            paddingBottom:10,
+            bottom: 20,
+            marginHorizontal: 15,
+            height:50,
+            borderRadius: 23,
+            backgroundColor:COLORS.white
+          }}>
+          
+
+            <TabButton
+            label={constants.screens.home}
+            icon={icons.home}
+            isFocused={selectedTab==constants.screens.home}
+            outerContainerStyle={homeFlexStyle}
+            innerContainerStyle={homeColorStyle}
+            onPress={()=>setSelectedTab(constants.screens.home)}
+            />
+
+            <TabButton
+            label={constants.screens.search}
+            icon={icons.search}
+            isFocused={selectedTab==constants.screens.search}
+            outerContainerStyle={searchFlexStyle}
+            innerContainerStyle={searchColorStyle}
+            onPress={()=>setSelectedTab(constants.screens.search)}
+            />
+
+            <TabButton
+            label={constants.screens.bookmark}
+            icon={icons.bookmark}
+            isFocused={selectedTab==constants.screens.bookmark}
+            outerContainerStyle={bookmarkFlexStyle}
+            innerContainerStyle={bookmarkColorStyle}
+            onPress={()=>setSelectedTab(constants.screens.bookmark)}
+            />
+
+            <TabButton
+            label={constants.screens.notification}
+            icon={icons.notification}
+            isFocused={selectedTab==constants.screens.notification}
+            outerContainerStyle={notificationFlexStyle}
+            innerContainerStyle={notificationColorStyle}
+            onPress={()=>setSelectedTab(constants.screens.notification)}
+            />
+          </View>
+        </View>
+
+      </Animated.View>
+
+    </View>
   );
 };
 

@@ -3,7 +3,8 @@ const { width, height } = Dimensions.get("window");
 import * as Font from 'expo-font';
 
 export const COLORS = {
-    primary: "#229879", //orange
+    primary: "#1C6758", //dark
+    secondary : "#609966",
     transparentPrimray: 'rgba(227, 120, 75, 0.4)',
     lime: "#2AD699",
     lightGreen: "#E7F9EF",

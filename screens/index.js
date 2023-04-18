@@ -21,6 +21,13 @@ import Notification from "./Notification/Notification"
 // OnBoarding
 import OnBoarding from "./OnBoarding/OnBoarding"
 
+// Authentication
+import SignIn from "./Authentication/SignIn"
+import SignUp from "./Authentication/SignUp"
+import Otp from "./Authentication/Otp"
+import ForgotPassword from "./Authentication/ForgotPassword"
+import Login from "./Authentication/Login";
+
 export {
     MainLayout,
     Home,
@@ -29,5 +36,11 @@ export {
     Bookmark,
     Notification,
     Recipe,
-    OnBoarding
+    OnBoarding,
+
+    SignIn,
+    SignUp,
+    Otp,
+    ForgotPassword,
+    Login
 }
